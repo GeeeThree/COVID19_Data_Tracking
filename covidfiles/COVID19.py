@@ -1,3 +1,7 @@
+#All data regarding COVID-19 can be found at https://github.com/CSSEGISandData/COVID-19
+#Data sources from John Hopkins, WHO, CDC, ECDC, NHC, DXY, 1point3acres, Worldometers.info, BNO, 
+#state and national government health departments, and local media reports. 
+
 import requests
 import csv
 from tabulate import tabulate
