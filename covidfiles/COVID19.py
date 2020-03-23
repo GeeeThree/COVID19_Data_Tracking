@@ -54,8 +54,6 @@ results = [(times, cases, cases - prev_cases, deaths, recover, cases/pop*100, de
 with open(file_location+filename2, "a") as update_file:
 	update_file.write(tabulate(results, headers = ['       ', '           ', '              ', '            ', '               ','                                ', '                                      '], tablefmt='plain'))
 
-print(tabulate(results))
-
 fromaddr = "example@gmail.com"
 toaddr = ['example@gmail.com', 'example2@gmail.com']
 
