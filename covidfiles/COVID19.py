@@ -18,8 +18,8 @@ from email import encoders
 
 data_url = "https://raw.githubusercontent.com/CSSEGISandData/COVID-19/master/csse_covid_19_data/csse_covid_19_daily_reports/"
 file_location = "/home/g3/covidfiles/"
-filename = time.strftime('%m-22-%Y.csv')
-times = time.strftime('%m-22-%Y')
+filename = time.strftime('%m-%d-%Y.csv')
+times = time.strftime('%m-%d-%Y')
 
 r = requests.get(data_url+filename)
 if(r.status_code != 200):
