@@ -32,48 +32,52 @@ else:
 
 filename2 = "COVID19_Stats.txt"
 df = pd.read_csv(file_location+filename2, delim_whitespace=True)
-rows = df.iloc[-2].iloc[1] #previous day data
+rows = df.iloc[-1].iloc[1] #previous day data
 df2 = pd.read_csv(file_location+filename, sep=',') #current day data
-df3 = DataFrame(df2, columns = ['Province/State', 'Country/Region', 'Last Update', 'Confirmed', 'Deaths', 'Recovered', 'Latitude', 'Longitude'])
-select_col = df3.loc[df3['Province/State'] == 'Florida']
+df3 = DataFrame(df2, columns = ['FIPS', 'Admin2', 'Province_State', 'Country_region', 'Last_Update', 'Lat', 'Long_', 'Confirmed', 'Deaths', 'Recovered', 'Active', 'Combined_Key'])
+select_col = df3.loc[df3['Admin2'] == 'Miami-Dade']
+print(select_col.values[0])
 
-Florida = select_col.values[0]
-df4 = DataFrame(Florida)
-case = df4.iloc[3].iloc[-1]
-death = df4.iloc[4].iloc[-1]
-rec = df4.iloc[5].iloc[-1]
+MiamiDade = select_col.values[0]
+df4 = DataFrame(MiamiDade)
+case = df4.iloc[7].iloc[-1]
+death = df4.iloc[8].iloc[-1]
+rec = df4.iloc[9].iloc[-1]
+active = df4.iloc[10].iloc[-1]
 
-pop = 21300000
+pop = 2752000
 prev_cases = int(rows)
 cases = int(case)
 deaths = int(death)
 recover = int(rec)
+still_active = int(active)
 
-results = [(times, cases, cases - prev_cases, deaths, recover, cases/pop*100, deaths/cases*100)]
+results = [(times, cases, still_active, cases - prev_cases, deaths, recover, cases/pop*100, deaths/cases*100)]
 
 with open(file_location+filename2, "a") as update_file:
-	update_file.write(tabulate(results, headers = ['       ', '           ', '              ', '            ', '               ','                                ', '                                      '], tablefmt='plain'))
+	update_file.write(tabulate(results, headers = ['                 ', '           ', '            ', '              ', '            ', '               ', '                                     ', '                    '], tablefmt='plain'))
+print(tabulate(results, headers = ['                 ', '           ', '            ', '              ', '            ', '               ', '                                     ', '                    '], tablefmt='plain'))
 
 fromaddr = "example@gmail.com"
-toaddr = ['example@gmail.com', 'example2@gmail.com']
+toaddr = ['example@gmail.com','example2@gmail.com']
 
 msg = MIMEMultipart()
 msg['From'] = fromaddr 
 msg['To'] = ', '.join(toaddr)
 msg['Subject'] = "COVID19 Data Updates"
-body = "These are the COVID19 Data updates for Florida on "+times
+body = "These are the COVID19 Data updates for Florida from 03-10-2020 through 03-23-2020 and the COVID19 Data updates for Miami-Dade County from 03-23-2020 through "+times
 msg.attach(MIMEText(body, 'plain'))
 filename3 = "/home/g3/covidfiles/COVID19_Stats.txt"
 attachment = open(filename3, "rb") 
 p = MIMEBase('application', 'octet-stream')
 p.set_payload((attachment).read())
 encoders.encode_base64(p) 
-p.add_header('Content-Disposition', "attachment; filename= %s" % filename3)
+p.add_header('Content-Disposition', "attachment; filename= %s" % 'COVID-19_Florida_Updates.txt')
 msg.attach(p) 
 s = smtplib.SMTP('smtp.gmail.com', 587) 
 s.starttls()
 s.login(fromaddr, "Password")
 text = msg.as_string() 
 s.sendmail(fromaddr, toaddr, text)
+time.sleep(10)
 s.quit()
-
