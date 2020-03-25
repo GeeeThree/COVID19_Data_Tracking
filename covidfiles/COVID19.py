@@ -30,13 +30,12 @@ else:
         f.write(r.content)
     print("Success")
 
-filename2 = "COVID19_Stats.txt"
+filename2 = "COVID19_Stats_MiamiDade.txt"
 df = pd.read_csv(file_location+filename2, delim_whitespace=True)
 rows = df.iloc[-1].iloc[1] #previous day data
 df2 = pd.read_csv(file_location+filename, sep=',') #current day data
 df3 = DataFrame(df2, columns = ['FIPS', 'Admin2', 'Province_State', 'Country_region', 'Last_Update', 'Lat', 'Long_', 'Confirmed', 'Deaths', 'Recovered', 'Active', 'Combined_Key'])
 select_col = df3.loc[df3['Admin2'] == 'Miami-Dade']
-print(select_col.values[0])
 
 MiamiDade = select_col.values[0]
 df4 = DataFrame(MiamiDade)
@@ -58,6 +57,16 @@ with open(file_location+filename2, "a") as update_file:
 	update_file.write(tabulate(results, headers = ['                 ', '           ', '            ', '              ', '            ', '               ', '                                     ', '                    '], tablefmt='plain'))
 print(tabulate(results, headers = ['                 ', '           ', '            ', '              ', '            ', '               ', '                                     ', '                    '], tablefmt='plain'))
 
+with open("/home/g3/covidfiles/COVID19_Stats_Florida.txt") as g:
+	with open("/home/g3/covidfiles/COVID19_Stats.txt", "w") as gg:
+		for line in g:
+			gg.write(line)
+
+with open("/home/g3/covidfiles/COVID19_Stats_MiamiDade.txt") as ggg:
+	with open("/home/g3/covidfiles/COVID19_Stats.txt", "a+") as gggg:
+		for line2 in ggg:
+			gggg.write(line2)
+			
 fromaddr = "example@gmail.com"
 toaddr = ['example@gmail.com','example2@gmail.com']
 
@@ -65,7 +74,7 @@ msg = MIMEMultipart()
 msg['From'] = fromaddr 
 msg['To'] = ', '.join(toaddr)
 msg['Subject'] = "COVID19 Data Updates"
-body = "These are the COVID19 Data updates for Florida from 03-10-2020 through 03-23-2020 and the COVID19 Data updates for Miami-Dade County from 03-23-2020 through "+times
+body = "These are the COVID19 Data updates for Florida from 03-10-2020 through 03-22-2020 and the COVID19 Data updates for Miami-Dade County from 03-23-2020 through "+times
 msg.attach(MIMEText(body, 'plain'))
 filename3 = "/home/g3/covidfiles/COVID19_Stats.txt"
 attachment = open(filename3, "rb") 
