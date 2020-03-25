@@ -32,7 +32,7 @@ Florida       Total Cases    Rate of Change    Total Deaths    Total Recovered  
 
 Miami-Dade County      Total Cases    Active Cases    Rate of Change    Total Deaths    Total Recovered    Percentage of the Population Infected    Percentage of Deaths
 -------------------  -------------  --------------  ----------------  --------------  -----------------  ---------------------------------------  ----------------------
-03-23-2020                     278               0                 0               0                  0                                0.0101017                       0
+03-23-2020                     278             278                 0               0                  0                                0.0101017                       0
 
-03-24-2020                     338               0                60               0                  0                                 0.012282                       0
+03-24-2020                     338             278                60               0                  0                                 0.012282                       0
 
